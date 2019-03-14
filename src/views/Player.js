@@ -38,7 +38,7 @@ const Id = styled.div`
 const Player = ({ user }) => {
   return (
     <Container>
-        <UserName>{user.username}</UserName> <Password>{user.name}</Password>
+        <UserName>{user.username}</UserName> <Password>{user.password}</Password>
       <Id>Id: {user.id}</Id>
     </Container>
   );

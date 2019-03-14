@@ -22,6 +22,16 @@ const PlayerContainer = styled.li`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+`;
+
+const PlayerContainerOnline = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: green;
 `;
 
 class Game extends React.Component {
@@ -33,6 +43,20 @@ class Game extends React.Component {
   }
 
   logout() {
+    let curToken = localStorage.getItem("token");
+    fetch(`${getDomain()}/users`,{
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        token: curToken
+      })
+    })
+        .catch(err => {
+          console.log(err);
+          alert("Something went wrong fetching the users: " + err);
+        });
     localStorage.removeItem("token");
     this.props.history.push("/login");
   }
@@ -44,50 +68,50 @@ class Game extends React.Component {
         "Content-Type": "application/json"
       }
     })
-      .then(response => response.json())
-      .then(async users => {
-        // delays continuous execution of an async operation for 0.8 seconds.
-        // This is just a fake async call, so that the spinner can be displayed
-        // feel free to remove it :)
-        await new Promise(resolve => setTimeout(resolve, 800));
+        .then(response => response.json())
+        .then(async users => {
+          // delays continuous execution of an async operation for 0.8 seconds.
+          // This is just a fake async call, so that the spinner can be displayed
+          // feel free to remove it :)
+          await new Promise(resolve => setTimeout(resolve, 800));
 
-        this.setState({ users });
-      })
-      .catch(err => {
-        console.log(err);
-        alert("Something went wrong fetching the users: " + err);
-      });
+          this.setState({ users });
+        })
+        .catch(err => {
+          console.log(err);
+          alert("Something went wrong fetching the users: " + err);
+        });
   }
 
   render() {
     return (
-      <Container>
-        <h2>Happy Coding! </h2>
-        <p>Get all users from secure end point:</p>
-        {!this.state.users ? (
-          <Spinner />
-        ) : (
-          <div>
-            <Users>
-              {this.state.users.map(user => {
-                return (
-                  <PlayerContainer key={user.id}>
-                    <Player user={user} />
-                  </PlayerContainer>
-                );
-              })}
-            </Users>
-            <Button
-              width="100%"
-              onClick={() => {
-                this.logout();
-              }}
-            >
-              Logout
-            </Button>
-          </div>
-        )}
-      </Container>
+        <Container>
+          <h2>Dashboard!</h2>
+          <p>Folgend sind alle Accounts aufgelistet:</p>
+          {!this.state.users ? (
+              <Spinner />
+          ) : (
+              <div>
+                <Users>
+                  {this.state.users.map(user => {
+                    return (
+                        <PlayerContainer onClick={()=>(this.props.history.push({pathname:`/users/${user.id}`, state:user.id}))} key={user.id}>
+                          <Player user={user} />
+                        </PlayerContainer>
+                    );
+                  })}
+                </Users>
+                <Button
+                    width="100%"
+                    onClick={() => {
+                      this.logout();
+                    }}
+                >
+                  Logout
+                </Button>
+              </div>
+          )}
+        </Container>
     );
   }
 }
