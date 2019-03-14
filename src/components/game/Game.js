@@ -25,15 +25,6 @@ const PlayerContainer = styled.li`
   cursor: pointer;
 `;
 
-const PlayerContainerOnline = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: green;
-`;
-
 class Game extends React.Component {
   constructor() {
     super();
@@ -87,7 +78,7 @@ class Game extends React.Component {
     return (
         <Container>
           <h2>Dashboard!</h2>
-          <p>Folgend sind alle Accounts aufgelistet:</p>
+          <p>Here are all the Users Listed:</p>
           {!this.state.users ? (
               <Spinner />
           ) : (

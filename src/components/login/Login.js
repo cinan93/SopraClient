@@ -160,14 +160,14 @@ class Login extends React.Component {
                         <Margin> </Margin>
                         <Message>{this.alertMessage()}</Message>
                         <Margin> </Margin>
-                        <Label>Benutzername</Label>
+                        <Label>Username</Label>
                         <InputField
-                            placeholder="Hansruedi Rüdisüli..."
+                            placeholder="Your Name..."
                             onChange={e => {
                                 this.handleInputChange("username", e.target.value);
                             }}
                         />
-                        <Label>Passwort</Label>
+                        <Label>Password</Label>
                         <InputField
                             type ="password"
                             placeholder="*******"
@@ -187,7 +187,7 @@ class Login extends React.Component {
                             </Button>
                         </ButtonContainer>
                         <Margin> </Margin>
-                        <a href="/register" style={{color: '#FCFFF7'}}>Neu? Registrieren!</a>
+                        <a href="/register" style={{color: '#FCFFF7'}}>New? CLick here to register!</a>
                         <Margin> </Margin>
                     </Form>
                 </FormContainer>
